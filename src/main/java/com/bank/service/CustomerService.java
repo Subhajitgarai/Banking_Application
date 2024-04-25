@@ -2,7 +2,9 @@ package com.bank.service;
 
 import com.bank.payloads.CustomerDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface CustomerService {
     public CustomerDto createNewCustomer(CustomerDto customerDto,int branchCode);
     public ResponseEntity<?> getAllCustomer();

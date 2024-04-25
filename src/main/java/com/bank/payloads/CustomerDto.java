@@ -23,4 +23,5 @@ public class CustomerDto {
     private String customerPh;
     private String customerPass;
     private Account account;
+
 }
