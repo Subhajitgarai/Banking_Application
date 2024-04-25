@@ -40,6 +40,7 @@ public class CustomerController {
         CustomerDto singleCustomerByAccountNumber = customerService.getSingleCustomerByAccountNumber(accountNumber);
         return new ResponseEntity<>(singleCustomerByAccountNumber, HttpStatus.OK);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/customer/{customerId}")
     public ResponseEntity<String> deleteCustomerById(@PathVariable int customerId) {
@@ -47,7 +48,7 @@ public class CustomerController {
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
-    //Deposit amount
+    //Deposit
     @PatchMapping("/customer/{accountNumber}/deposit")
     public ResponseEntity<String> depositBalance(@PathVariable String accountNumber, @Param("accountBalance") long accountBalance) {
         String msg = customerService.depositAmount(accountNumber, accountBalance);
