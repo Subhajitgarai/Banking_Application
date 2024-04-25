@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@EnableMethodSecurity(prePostEnabled = true)
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
@@ -37,7 +40,7 @@ public class CustomerController {
         CustomerDto singleCustomerByAccountNumber = customerService.getSingleCustomerByAccountNumber(accountNumber);
         return new ResponseEntity<>(singleCustomerByAccountNumber, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/customer/{customerId}")
     public ResponseEntity<String> deleteCustomerById(@PathVariable int customerId) {
         String msg = customerService.deleteCustomer(customerId);

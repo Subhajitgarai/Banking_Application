@@ -6,17 +6,21 @@ import com.bank.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/bank")
+@EnableMethodSecurity(prePostEnabled = true)
 public class BankController {
     //Create bank
     @Autowired
     private BankService bankService;
     @PostMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BankDto>addBank(@RequestBody BankDto bankDto){
         BankDto bank = bankService.createBank(bankDto);
         return new ResponseEntity<>(bank, HttpStatus.CREATED);
@@ -31,11 +35,13 @@ public class BankController {
         BankDto singleBank = bankService.getSingleBank(bankId);
         return new ResponseEntity<>(singleBank,HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{bankId}/addBranch")
     public ResponseEntity<BankDto> addNewBranch(@PathVariable int bankId, @RequestBody Branch branch){
         BankDto bankDto = bankService.addBranch(bankId, branch);
         return new ResponseEntity<>(bankDto,HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{bankId}/removeBranch/{branchCode}")
     public ResponseEntity<String> deleteBranch(@PathVariable int bankId, @PathVariable int branchCode){
         String msg = bankService.removeBranch(bankId, branchCode);
