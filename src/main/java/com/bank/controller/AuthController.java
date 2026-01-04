@@ -53,18 +53,14 @@ public class AuthController {
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
         try {
-            daoAuthenticationProvider.authenticate(authentication);
 
+            daoAuthenticationProvider.authenticate(authentication);
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException(" Invalid Username or Password  !!");
+            throw new BadCredentialsException("Password not matched for user "+ email);
         }
 
     }
     //If Any Exception Occurs it will come here and print this
-    @ExceptionHandler(BadCredentialsException.class)
-    public String exceptionHandler() {
-        return "Credentials Invalid !!";
-    }
     //Register New User Api
     @PostMapping("/register/{branchCode}")
     public ResponseEntity<CustomerDto>registerUser(@RequestBody CustomerDto customerDto,@PathVariable int branchCode){
