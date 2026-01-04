@@ -62,6 +62,7 @@ public class AuthController {
     }
     //If Any Exception Occurs it will come here and print this
     //Register New User Api
+    // Test For Revert
     @PostMapping("/register/{branchCode}")
     public ResponseEntity<CustomerDto>registerUser(@RequestBody CustomerDto customerDto,@PathVariable int branchCode){
         CustomerDto registered = customerService.createNewCustomer(customerDto, branchCode);
