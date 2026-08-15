@@ -3,32 +3,42 @@ package com.bank.test.dsa;
 import java.util.Scanner;
 
 public class Queue {
-    int font =-1;
-    int rare =-1;
-    public void insertToQueue(int []a,int item){
-        int N =a.length;
-        if(rare==N-1){
-            System.out.println("Stack is full.....");
-        }
-        else if(font==-1 && rare==-1){
-            font=0;
-            a[++rare]=item;
-        }
-        else{
-            a[++rare]=item;
+    int front = -1;
+    int rear = -1;
+
+    public void insertToQueue(int[] a, int item) {
+        int N = a.length;
+        if (rear == N - 1) {
+            System.out.println("Queue is full.....");
+        } else if (front == -1 && rear == -1) {
+            front = 0;
+            a[++rear] = item;
+        } else {
+            a[++rear] = item;
         }
     }
-    public void deleteFromQueue(int []a){
-        if(font ==-1){
+
+    public void deleteFromQueue(int[] a) {
+        if (front == -1) {
             System.out.println("No Elements in Queue present to delete.....");
-        }
-        else{
-            System.out.println("Element Deleted from Queue is : "+ a[font++]);
+        } else {
+            System.out.println("Element Deleted from Queue is : " + a[front]);
+            a[front] = 0;
+            front++;
+            if (front > rear) {
+                front = -1;
+                rear = -1;
+            }
         }
     }
-    public void displayElements(int []a){
-        for (int i=font;i<=rare;i++){
-            System.out.println("Elements in Queue: "+a[i]);
+
+    public void displayElements(int[] a) {
+        if (front == -1) {
+            System.out.println("Queue is empty.....");
+            return;
+        }
+        for (int i = front; i <= rear; i++) {
+            System.out.println("Elements in Queue: " + a[i]);
         }
     }
 
@@ -42,7 +52,7 @@ public class Queue {
             int ch = sc.nextInt();
             switch (ch){
                 case 1:
-                    System.out.println("Enter Item to insert into stack: ");
+                    System.out.println("Enter Item to insert into queue: ");
                     int item=sc.nextInt();
                     queue.insertToQueue(a,item);
                     break;
