@@ -1,6 +1,4 @@
-package com.bank.test;
-
-import com.bank.test.dsa.Bsort;
+package com.bank.test.dsa;
 
 public class BinarySearch {
     private static void bsearch(int[]a, int min,int max,int item){
